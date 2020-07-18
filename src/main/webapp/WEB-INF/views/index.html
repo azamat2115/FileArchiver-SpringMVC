@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    body {
+        background: url("039d2100e318fb2f69a469341f3d3f1c.jpg") no-repeat center center fixed;
+    }
+
+    #reset {
+        width: 50%;
+        padding: 20px 10px;
+        margin: 100px auto auto;
+        text-align: center;
+    }
+
+    #header {
+        color: #555;
+        text-align: center;
+        text-decoration-color: coral;
+    }
+</style>
+<body>
+<h1 id="header">Zip your files</h1>
+<form id="reset" action="/upload" method="post" enctype="multipart/form-data">
+    Select File: <input id="in" type="file" name="file"/>
+    <input type="submit" value="Upload file"/>
+</form>
+</body>
+</html>
