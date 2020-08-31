@@ -3,30 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #ddd;
+        }
+        .class-use {
+            margin: 250px 0 0 380px;
+            width: 70%;
+        }
+    </style>
 </head>
-<style>
-    body {
-        background: url("039d2100e318fb2f69a469341f3d3f1c.jpg") no-repeat center center fixed;
-    }
-
-    #reset {
-        width: 50%;
-        padding: 20px 10px;
-        margin: 100px auto auto;
-        text-align: center;
-    }
-
-    #header {
-        color: #555;
-        text-align: center;
-        text-decoration-color: coral;
-    }
-</style>
 <body>
-<h1 id="header">Zip your files</h1>
 <form id="reset" action="/upload" method="post" enctype="multipart/form-data">
-    Select File: <input id="in" type="file" name="file"/>
-    <input type="submit" value="Upload file"/>
+    <div class="class-use">
+        <div class="col-lg-6 col-sm-6 col-12">
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary">
+                        Browse&hellip; <input type="file" style="display: none;" multiple name="file" required>
+                    </span>
+                </label>
+                <input type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Upload">
+    </div>
 </form>
+<script>
+    $(function() {
+
+        // We can attach the `fileselect` event to all file inputs on the page
+        $(document).on('change', ':file', function() {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+        // We can watch for our custom `fileselect` event like this
+        $(document).ready( function() {
+            $(':file').on('fileselect', function(event, numFiles, label) {
+
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+                if( input.length ) {
+                    input.val(log);
+                } else {
+                    if( log ) alert(log);
+                }
+
+            });
+        });
+
+    });
+</script>
 </body>
 </html>
